@@ -1,0 +1,78 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { getAlbums } from '../lib/albums';
+
+export const prerender = true;
+
+const albums = getAlbums();
+const hero = albums.find((a) => a.featured) ?? albums[0];
+---
+
+<Base title="Terrance McGovern — Landscape & Astrophotography">
+  <section class="relative flex min-h-svh items-end">
+    {
+      hero && (
+        <Picture
+          src={hero.cover}
+          alt={hero.title}
+          widths={[640, 1024, 1600, 2400]}
+          sizes="100vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          loading="eager"
+          fetchpriority="high"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      )
+    }
+    <div class="absolute inset-0 bg-gradient-to-t from-night via-night/20 to-night/40"></div>
+    <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 sm:px-8">
+      <p class="mb-3 text-xs uppercase tracking-[0.35em] text-fog">
+        Landscapes on foot · night skies from Antarctica
+      </p>
+      <h1 class="max-w-3xl text-4xl font-light leading-tight sm:text-6xl">
+        Photographs from the quiet ends of the earth.
+      </h1>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a
+          href="/galleries/"
+          class="border border-snow/80 px-6 py-3 text-xs uppercase tracking-[0.25em] transition-colors hover:bg-snow hover:text-night"
+        >
+          View galleries
+        </a>
+        <a
+          href="/prints/"
+          class="border border-transparent px-6 py-3 text-xs uppercase tracking-[0.25em] text-fog transition-colors hover:text-snow"
+        >
+          Prints
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+    <h2 class="mb-8 text-xs uppercase tracking-[0.35em] text-fog">Recent journeys</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        albums.slice(0, 3).map((album) => (
+          <a href={`/galleries/${album.slug}/`} class="group block">
+            <div class="overflow-hidden">
+              <Picture
+                src={album.cover}
+                alt={album.title}
+                widths={[480, 800, 1200]}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                formats={['avif', 'webp']}
+                fallbackFormat="webp"
+                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
+            <p class="mt-1 text-xs text-fog">{album.photos.length} photographs</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Base>

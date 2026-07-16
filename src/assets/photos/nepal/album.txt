@@ -1,0 +1,6 @@
+title: Nepal
+description: Trekking the high valleys of the Himalaya — thin air, gold sunrises, and the biggest mountains on earth.
+
+01-gold-on-the-summit.jpg: Sunrise gold on the summit pyramid.
+02-high-pass.jpg: Ridgelines stacked to the horizon from the pass.
+03-moonrise-himalaya.jpg: Moonrise over the high Himalaya.

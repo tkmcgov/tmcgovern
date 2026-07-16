@@ -1,0 +1,63 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { getAlbums } from '../lib/albums';
+
+export const prerender = true;
+
+const albums = getAlbums();
+const featured = albums.find((a) => a.featured) ?? albums[0];
+---
+
+<Base title="About — Terrance McGovern" description="About landscape and astrophotographer Terrance McGovern.">
+  <div class="mx-auto max-w-6xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32">
+    <h1 class="text-3xl font-light sm:text-4xl">About</h1>
+
+    <div class="mt-10 grid gap-12 lg:grid-cols-[3fr_2fr]">
+      <div class="space-y-5 text-sm leading-relaxed text-fog sm:text-base">
+        <p class="text-snow">
+          I'm Terrance McGovern — a hiker first, a photographer close behind.
+        </p>
+        <p>
+          Most of these photographs were made on foot: long walks through Patagonia, the Nepalese
+          Himalaya, and other far corners of the world, carrying a camera because the light in wild
+          places is too good to leave behind. I'm drawn to the quiet hours — first light on a ridge,
+          the last color draining out of a valley — and to landscapes that make you feel pleasantly
+          small.
+        </p>
+        <p>
+          The other half of my work happens after dark. From Antarctica, in the months when the sun
+          barely rises, I photograph the night sky — auroras, star trails, and the Milky Way over
+          ice — in some of the darkest, clearest conditions on the planet.
+        </p>
+        <p>
+          Everything here was shot on real trips, in real weather, usually a long way from a road.
+          If one of these images stays with you, I'd love to hear about it — a small number of
+          prints will be available soon.
+        </p>
+        <a
+          href="/prints/"
+          class="inline-block border border-snow/80 px-6 py-3 text-xs uppercase tracking-[0.25em] text-snow transition-colors hover:bg-snow hover:text-night"
+        >
+          Ask about prints
+        </a>
+      </div>
+      {
+        featured && (
+          <div>
+            <Picture
+              src={featured.cover}
+              alt={featured.title}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              formats={['avif', 'webp']}
+              fallbackFormat="webp"
+              class="w-full object-cover"
+            />
+            <p class="mt-2 text-xs text-fog">From “{featured.title}”</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</Base>

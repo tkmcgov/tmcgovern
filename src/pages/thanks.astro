@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+
+export const prerender = true;
+---
+
+<Base title="Thank you — Terrance McGovern">
+  <div class="mx-auto flex min-h-svh max-w-2xl flex-col items-start justify-center px-5 sm:px-8">
+    <h1 class="text-3xl font-light sm:text-4xl">Thank you — message sent.</h1>
+    <p class="mt-4 text-sm leading-relaxed text-fog sm:text-base">
+      I read every message personally and I'll get back to you soon, usually within a few days
+      (a little longer if I'm somewhere without signal — which, fair warning, happens a lot).
+    </p>
+    <a
+      href="/galleries/"
+      class="mt-8 border border-snow/80 px-6 py-3 text-xs uppercase tracking-[0.25em] text-snow transition-colors hover:bg-snow hover:text-night"
+    >
+      Back to the galleries
+    </a>
+  </div>
+</Base>

@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Landscape and astrophotography by Terrance McGovern.' } =
+  Astro.props;
+
+const nav = [
+  { href: '/galleries/', label: 'Galleries' },
+  { href: '/about/', label: 'About' },
+  { href: '/prints/', label: 'Prints' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-night font-sans text-snow antialiased">
+    <header class="absolute inset-x-0 top-0 z-20">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
+        <a
+          href="/"
+          class="text-sm font-semibold uppercase tracking-[0.25em] text-snow transition-opacity hover:opacity-70"
+        >
+          Terrance McGovern
+        </a>
+        <ul class="flex items-center gap-5 sm:gap-8">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'text-xs uppercase tracking-[0.2em] transition-colors hover:text-snow',
+                    currentPath.startsWith(item.href) ? 'text-snow' : 'text-fog',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="border-t border-line">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-xs tracking-wide text-fog sm:flex-row sm:items-center sm:justify-between sm:px-8"
+      >
+        <p>© {new Date().getFullYear()} Terrance McGovern. All photographs are the property of the artist.</p>
+        <a href="/prints/" class="transition-colors hover:text-snow">Interested in a print?</a>
+      </div>
+    </footer>
+  </body>
+</html>

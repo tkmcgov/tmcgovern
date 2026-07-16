@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+
+export const prerender = true;
+---
+
+<Base
+  title="Prints — Terrance McGovern"
+  description="Express interest in a fine-art print of Terrance McGovern's landscape and astrophotography."
+>
+  <div class="mx-auto max-w-2xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32">
+    <h1 class="text-3xl font-light sm:text-4xl">Prints</h1>
+    <p class="mt-4 text-sm leading-relaxed text-fog sm:text-base">
+      A small print shop is in the works. In the meantime, if a photograph from one of the
+      <a href="/galleries/" class="text-snow underline decoration-fog/50 underline-offset-4 hover:decoration-snow">galleries</a>
+      belongs on your wall, tell me about it below — I'll get back to you personally with sizes,
+      papers, and pricing, and you'll be first in line when prints go on sale.
+    </p>
+
+    <form
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      class="mt-12 space-y-6"
+    >
+      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+      <input type="hidden" name="subject" value="Print interest — tmcgovern.me" />
+      <input type="hidden" name="from_name" value="tmcgovern.me print interest form" />
+      <input type="hidden" name="redirect" value="https://tmcgovern.me/thanks/" />
+      <!-- honeypot: hidden from humans, bots that fill it are ignored -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
+      <div>
+        <label for="name" class="mb-2 block text-xs uppercase tracking-[0.25em] text-fog">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          autocomplete="name"
+          class="w-full border border-line bg-panel px-4 py-3 text-sm text-snow outline-none transition-colors focus:border-fog"
+        />
+      </div>
+
+      <div>
+        <label for="email" class="mb-2 block text-xs uppercase tracking-[0.25em] text-fog">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          autocomplete="email"
+          class="w-full border border-line bg-panel px-4 py-3 text-sm text-snow outline-none transition-colors focus:border-fog"
+        />
+      </div>
+
+      <div>
+        <label for="photo" class="mb-2 block text-xs uppercase tracking-[0.25em] text-fog">
+          Which photo are you interested in?
+        </label>
+        <input
+          type="text"
+          id="photo"
+          name="photo"
+          placeholder="e.g. “Aurora over the ice” from the Antarctica gallery"
+          class="w-full border border-line bg-panel px-4 py-3 text-sm text-snow placeholder:text-fog/50 outline-none transition-colors focus:border-fog"
+        />
+      </div>
+
+      <div>
+        <label for="message" class="mb-2 block text-xs uppercase tracking-[0.25em] text-fog">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          class="w-full border border-line bg-panel px-4 py-3 text-sm text-snow outline-none transition-colors focus:border-fog"
+        ></textarea>
+      </div>
+
+      <button
+        type="submit"
+        class="border border-snow/80 px-8 py-3 text-xs uppercase tracking-[0.25em] text-snow transition-colors hover:bg-snow hover:text-night"
+      >
+        Send
+      </button>
+    </form>
+  </div>
+</Base>
