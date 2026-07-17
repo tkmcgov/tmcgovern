@@ -4,7 +4,7 @@
 
 title: Antarctica — Night Skies
 description: Astrophotography from the Antarctic winter — auroras, star trails, and the Milky Way over the ice, shot in some of the darkest skies on the planet.
-featured: yes
+featured: no
 cover: 01-aurora-over-the-ice.jpg
 
 01-aurora-over-the-ice.jpg: Aurora australis curling over the ice shelf.
