@@ -16,3 +16,7 @@ node_modules/
 
 # OS junk
 .DS_Store
+
+# test output
+test-results/
+playwright-report/

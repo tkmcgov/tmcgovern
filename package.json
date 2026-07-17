@@ -5,7 +5,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "npm run build && wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "test": "astro build && playwright test",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,10 @@
     "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
+    "@playwright/test": "^1.61.1",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
     "sharp": "^0.35.3",
     "wrangler": "^4.111.0"
   },
