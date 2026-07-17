@@ -1,0 +1,7 @@
+title: Patagonia
+description: Ten days on foot in Torres del Paine and around El Chaltén — granite towers, glacier lakes, and weather that changes its mind hourly.
+
+01-towers-at-dawn.jpg: First light hitting the towers.
+02-glacier-lake.jpg: Glacier-fed water, impossibly blue even under cloud.
+03-cuernos-storm.jpg: A storm building over the Cuernos.
+04-last-light.jpg: The last warm light of the day leaving the valley.
