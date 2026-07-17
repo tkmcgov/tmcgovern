@@ -1,0 +1,18 @@
+title: Antarctic Winter - McMurdo
+description: Astrophotography and more from the Antarctic winter - auroras and the Milky way over the ice. Shot during the austral winter during my deployment to McMurdo Station of the United States Antarctic Program. 
+featured: yes
+cover: 14.avif
+
+02: The NASA Radome with Observation Hill in the background under the milky way
+03: A ring of auroras around Observation Hill
+04: Auroras and the Milky Way over the sea ice
+05: The backside of Observation Hill under the Milky Way
+06: Our neighbors - New Zealand's Scott Base
+07: Hut point ridge with the Radome and the laser beam from the lidar lab in the background
+08: Overhead aurora
+09: Discovery Hut with hut point ridge, the radome and the laser beam from the lidar lab in the background
+10: Discovery Hut under auroras
+11: On the trail to the top of Observation Hill with strong auroras
+12: Auroras on the horizon under the milky way with the silhouette of Mt. Erebus in the background
+13: A prime night sky
+14: Admiring the night sky
