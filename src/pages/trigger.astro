@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
+import Lightbox from '../components/Lightbox.astro';
 import { getAlbum } from '../lib/albums';
 
 export const prerender = true;
 
 const album = getAlbum('trigger');
+const fosters = getAlbum('foster-dogs');
 ---
 
 <Base
@@ -20,12 +22,20 @@ const album = getAlbum('trigger');
       rides, to kayaking, he was up for every adventure. May he rest in peace.
     </p>
 
+    {album && album.photos.length > 0 && <PhotoGrid photos={album.photos} contextTitle="Trigger" />}
+
     {
-      album && album.photos.length > 0 ? (
-        <PhotoGrid photos={album.photos} contextTitle="Trigger" />
-      ) : (
-        <p class="mt-12 text-sm text-fog">Photos of Trigger are on their way.</p>
+      fosters && fosters.photos.length > 0 && (
+        <section class="mt-20">
+          <h2 class="text-2xl font-light sm:text-3xl">Foster Dogs</h2>
+          <p class="mt-3 max-w-2xl text-sm leading-relaxed text-fog sm:text-base">
+            In addition to Trigger, here are all the wonderful dogs I have fostered along the way.
+          </p>
+          <PhotoGrid photos={fosters.photos} contextTitle="Foster dogs" />
+        </section>
       )
     }
+
+    <Lightbox />
   </div>
 </Base>

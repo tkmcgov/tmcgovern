@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PhotoGrid from '../../components/PhotoGrid.astro';
+import Lightbox from '../../components/Lightbox.astro';
 import { getAlbums } from '../../lib/albums';
 
 export const prerender = true;
@@ -33,6 +34,7 @@ const { album } = Astro.props;
     }
 
     <PhotoGrid photos={album.photos} contextTitle={album.title} />
+    <Lightbox />
 
     <p class="mt-14 border-t border-line pt-8 text-sm text-fog">
       Interested in one of these as a print?

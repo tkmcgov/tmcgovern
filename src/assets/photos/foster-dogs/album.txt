@@ -1,0 +1,7 @@
+# This album is hidden from the Galleries pages — its photos appear in
+# the "Foster Dogs" section of the Trigger page (tmcgovern.me/trigger/).
+title: Foster Dogs
+hidden: yes
+
+# To caption a photo, add a line matching its exact filename, e.g.:
+# 01-buddy.avif: Buddy, foster number one.
