@@ -11,6 +11,8 @@ const { title, description = 'Landscape and astrophotography by Terrance McGover
 
 const nav = [
   { href: '/galleries/', label: 'Galleries' },
+  { href: '/hikes/', label: 'Hikes' },
+  { href: '/gear/', label: 'Gear' },
   { href: '/about/', label: 'About' },
   { href: '/prints/', label: 'Prints' },
 ];
@@ -37,7 +39,7 @@ const currentPath = Astro.url.pathname;
         >
           Terrance McGovern
         </a>
-        <ul class="flex items-center gap-5 sm:gap-8">
+        <ul class="flex flex-wrap items-center gap-x-5 gap-y-1 sm:gap-x-8">
           {
             nav.map((item) => (
               <li>
