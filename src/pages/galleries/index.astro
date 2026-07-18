@@ -33,12 +33,15 @@ const rest = albums.filter((a) => !a.featured);
                 sizes="(min-width: 1152px) 1088px, 100vw"
                 formats={['avif', 'webp']}
                 fallbackFormat="webp"
-                class="aspect-[21/9] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                class:list={[
+                  'w-full transition-transform duration-700 group-hover:scale-[1.03]',
+                  album.cover.width <= album.cover.height && 'aspect-[21/9] object-cover',
+                ]}
               />
               <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-night/90 via-transparent to-transparent p-6 sm:p-10">
                 <h3 class="text-2xl font-light sm:text-3xl">{album.title}</h3>
                 {album.description && (
-                  <p class="mt-2 max-w-xl text-sm text-fog">{album.description}</p>
+                  <p class="mt-2 hidden max-w-xl text-sm text-fog sm:block">{album.description}</p>
                 )}
                 <p class="mt-3 text-xs uppercase tracking-[0.25em] text-fog">
                   {album.photos.length} photographs →
@@ -64,7 +67,10 @@ const rest = albums.filter((a) => !a.featured);
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   formats={['avif', 'webp']}
                   fallbackFormat="webp"
-                  class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  class:list={[
+                    'w-full transition-transform duration-500 group-hover:scale-105',
+                    album.cover.width <= album.cover.height && 'aspect-[4/3] object-cover',
+                  ]}
                 />
               </div>
               <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>

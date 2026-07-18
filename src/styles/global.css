@@ -20,6 +20,16 @@ html {
   background-color: #2e3550;
 }
 
+/* no blue tap-highlight flash or drag-selection tint on photos/links (iOS) */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+main a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* full-screen lightbox */
 dialog#lightbox {
   max-width: 100vw;

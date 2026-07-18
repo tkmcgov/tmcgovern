@@ -65,7 +65,10 @@ const hero = albums.find((a) => a.featured) ?? albums[0];
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 formats={['avif', 'webp']}
                 fallbackFormat="webp"
-                class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                class:list={[
+                  'w-full transition-transform duration-500 group-hover:scale-105',
+                  album.cover.width <= album.cover.height && 'aspect-[4/3] object-cover',
+                ]}
               />
             </div>
             <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
