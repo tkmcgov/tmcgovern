@@ -3,5 +3,11 @@
 title: Foster Dogs
 hidden: yes
 
-# To caption a photo, add a line matching its exact filename, e.g.:
-# 01-buddy.avif: Buddy, foster number one.
+01.avif: Terrence the dog (no I did not name him!) - fostered until adoption
+02.avif: Phantom - fostered until adoption
+03.avif: Ralphie - fostered until adoption
+04.avif: Oakleigh - fostered until adoption
+05.avif: Oakleigh was my longest foster, had her for 2 years!
+06.avif: Oakleigh with Deano - temporary foster
+07.avif: King - temporary foster
+08.avif: A puppy! Temporary foster
