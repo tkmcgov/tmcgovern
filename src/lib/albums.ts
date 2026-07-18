@@ -14,6 +14,8 @@ export interface Album {
   description?: string;
   /** featured albums get top billing on the Galleries page */
   featured: boolean;
+  /** hidden albums never appear in the Galleries — their photos are used by dedicated pages */
+  hidden: boolean;
   cover: ImageMetadata;
   photos: Photo[];
 }
@@ -91,6 +93,7 @@ function buildAlbums(): Album[] {
       title: meta.get('title') ?? titleFromSlug(slug),
       description: meta.get('description'),
       featured: ['yes', 'true', '1'].includes((meta.get('featured') ?? '').toLowerCase()),
+      hidden: ['yes', 'true', '1'].includes((meta.get('hidden') ?? '').toLowerCase()),
       cover,
       photos,
     });
@@ -107,7 +110,7 @@ function buildAlbums(): Album[] {
 const albums = buildAlbums();
 
 export function getAlbums(): Album[] {
-  return albums;
+  return albums.filter((a) => !a.hidden);
 }
 
 export function getAlbum(slug: string): Album | undefined {

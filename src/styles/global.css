@@ -39,6 +39,7 @@ dialog#lightbox {
   margin: 0;
   padding: 0;
   border: none;
+  overflow: hidden; /* never show a scrollbar inside the viewer */
   background: rgb(4 5 8 / 0.97);
 }
 

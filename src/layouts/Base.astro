@@ -68,7 +68,10 @@ const currentPath = Astro.url.pathname;
         class="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-xs tracking-wide text-fog sm:flex-row sm:items-center sm:justify-between sm:px-8"
       >
         <p>© {new Date().getFullYear()} Terrance McGovern. All photographs are the property of the artist.</p>
-        <a href="/prints/" class="transition-colors hover:text-snow">Interested in a print?</a>
+        <div class="flex gap-5">
+          <a href="/trigger/" class="transition-colors hover:text-snow">Trigger the dog</a>
+          <a href="/prints/" class="transition-colors hover:text-snow">Interested in a print?</a>
+        </div>
       </div>
     </footer>
   </body>

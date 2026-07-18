@@ -1,0 +1,7 @@
+# This album is hidden from the Galleries pages — its photos appear on
+# the "Trigger the dog" page (tmcgovern.me/trigger/) instead.
+title: Trigger
+hidden: yes
+
+# To caption a photo, add a line matching its exact filename, e.g.:
+# 01-summit.jpg: Trigger on his first Colorado 14er.

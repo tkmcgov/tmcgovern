@@ -1,0 +1,111 @@
+---
+import { Picture, getImage } from 'astro:assets';
+import type { Photo } from '../lib/albums';
+
+interface Props {
+  photos: Photo[];
+  /** used for alt text on photos without a caption */
+  contextTitle: string;
+}
+
+const { photos, contextTitle } = Astro.props;
+
+/* pre-render a large optimized version of each photo for the lightbox */
+const fullSize = await Promise.all(
+  photos.map((photo) =>
+    getImage({ src: photo.image, width: 2400, format: 'webp', quality: 80 }),
+  ),
+);
+---
+
+<div class="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+  {
+    photos.map((photo, i) => (
+      <a
+        href={fullSize[i]!.src}
+        class="lightbox-link group block break-inside-avoid"
+        data-index={i}
+        data-caption={photo.caption ?? ''}
+      >
+        <Picture
+          src={photo.image}
+          alt={photo.caption ?? `${contextTitle} — photograph ${i + 1}`}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          class="w-full transition-opacity duration-300 group-hover:opacity-85"
+        />
+        {photo.caption && (
+          <p class="mt-2 text-xs leading-relaxed text-fog">{photo.caption}</p>
+        )}
+      </a>
+    ))
+  }
+</div>
+
+<dialog id="lightbox" aria-label="Photo viewer">
+  <div class="flex h-full w-full flex-col items-center justify-center">
+    <img id="lightbox-img" src="" alt="" class="max-h-[85svh] max-w-[96vw] object-contain" />
+    <p id="lightbox-caption" class="mt-3 px-6 text-center text-xs text-fog"></p>
+  </div>
+  <button
+    id="lightbox-close"
+    aria-label="Close"
+    class="absolute right-4 top-4 p-3 text-2xl leading-none text-fog hover:text-snow"
+  >
+    ✕
+  </button>
+  <button
+    id="lightbox-prev"
+    aria-label="Previous photo"
+    class="absolute left-2 top-1/2 -translate-y-1/2 p-4 text-3xl text-fog hover:text-snow"
+  >
+    ‹
+  </button>
+  <button
+    id="lightbox-next"
+    aria-label="Next photo"
+    class="absolute right-2 top-1/2 -translate-y-1/2 p-4 text-3xl text-fog hover:text-snow"
+  >
+    ›
+  </button>
+</dialog>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.lightbox-link')];
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = document.getElementById('lightbox-img') as HTMLImageElement;
+  const caption = document.getElementById('lightbox-caption')!;
+  let current = 0;
+
+  function show(index: number) {
+    current = (index + links.length) % links.length;
+    const link = links[current]!;
+    img.src = link.href;
+    img.alt = link.dataset.caption || 'Photograph';
+    caption.textContent = link.dataset.caption || '';
+  }
+
+  links.forEach((link, i) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      show(i);
+      dialog.showModal();
+    });
+  });
+
+  document.getElementById('lightbox-close')!.addEventListener('click', () => dialog.close());
+  document.getElementById('lightbox-prev')!.addEventListener('click', () => show(current - 1));
+  document.getElementById('lightbox-next')!.addEventListener('click', () => show(current + 1));
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!dialog.open) return;
+    if (event.key === 'ArrowLeft') show(current - 1);
+    if (event.key === 'ArrowRight') show(current + 1);
+  });
+</script>

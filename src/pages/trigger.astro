@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import { getAlbum } from '../lib/albums';
+
+export const prerender = true;
+
+const album = getAlbum('trigger');
+---
+
+<Base
+  title="Trigger the Dog — Terrance McGovern"
+  description="Remembering Trigger — hiking and adventure buddy, best friend, and a serious shedder."
+>
+  <div class="mx-auto max-w-6xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32">
+    <h1 class="text-3xl font-light sm:text-4xl">Trigger the Dog</h1>
+    <p class="mt-4 max-w-2xl text-sm leading-relaxed text-fog sm:text-base">
+      Trigger was an amazing dog, hiking and adventure buddy, best friend, and of course, a
+      serious shedder. From summiting Colorado 14'ers and 20 state high points, to motorcycle
+      rides, to kayaking, he was up for every adventure. May he rest in peace.
+    </p>
+
+    {
+      album && album.photos.length > 0 ? (
+        <PhotoGrid photos={album.photos} contextTitle="Trigger" />
+      ) : (
+        <p class="mt-12 text-sm text-fog">Photos of Trigger are on their way.</p>
+      )
+    }
+  </div>
+</Base>
