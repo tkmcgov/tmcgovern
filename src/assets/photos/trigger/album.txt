@@ -3,5 +3,31 @@
 title: Trigger
 hidden: yes
 
-# To caption a photo, add a line matching its exact filename, e.g.:
-# 01-summit.jpg: Trigger on his first Colorado 14er.
+
+01.avif: Adoption day, 2015
+01a:avif: Welcome home - belly rub please
+02.avif: First camping trip
+03.avif: Shed shed shed
+04.avif: Tug with Oakleigh
+05.avif: Hiking the Ozarks, :P
+06.avif: At the Gateway Arch
+07.avif: At the highest point in Kansas
+08.avif: One of many 14'er's summitted
+09.avif: Another 14'er
+10.avif: Hiking in Utah
+11.avif: The highest point in Iowa
+12.avif: Gov Island ferry
+13.avif: Backpack training
+14.avif: Backpack training with NYC in background
+15.avif: Riding the NYC subway
+16.avif: Beach day
+17.avif: Hiking on the Hudson
+17a.avif: Lake day
+18.avif: Backpack level 2
+19.avif: ADK hiking
+20.avif: BFFs
+21.avif: Motorcycle time - he loved it
+22.avif: Lets ride
+23.avif: Big stretch
+24.avif: Found a porcupine...
+25.avif: 10th bday
