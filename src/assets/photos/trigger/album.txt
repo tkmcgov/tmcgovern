@@ -5,7 +5,7 @@ hidden: yes
 
 
 01.avif: Adoption day, 2015
-01a:avif: Welcome home - belly rub please
+01a.avif: Welcome home - belly rub please
 02.avif: First camping trip
 03.avif: Shed shed shed
 04.avif: Tug with Oakleigh
