@@ -1,0 +1,6 @@
+title: Winter at the South Pole
+description: A winter-over at Amundsen-Scott South Pole Station — from before the good camera, more for the stories than for prints.
+section: earlier
+
+# To caption a photo or video, add a line matching its exact filename, e.g.:
+# 01-sunset.jpg: The last sunset for six months.

@@ -7,6 +7,13 @@ export interface Photo {
   caption?: string;
 }
 
+export interface Video {
+  /** filename inside the album folder, e.g. "05-aurora-timelapse.mp4" */
+  file: string;
+  url: string;
+  caption?: string;
+}
+
 export interface Album {
   /** folder name, used in the URL: /galleries/<slug>/ */
   slug: string;
@@ -16,8 +23,11 @@ export interface Album {
   featured: boolean;
   /** hidden albums never appear in the Galleries — their photos are used by dedicated pages */
   hidden: boolean;
+  /** which Galleries section the album lives in: 'earlier' → Earlier Travels, otherwise The Good Camera */
+  section?: string;
   cover: ImageMetadata;
   photos: Photo[];
+  videos: Video[];
 }
 
 /*
@@ -29,10 +39,17 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true },
 );
 
+/* self-hosted videos, served as-is (keep them small MP4s) */
+const videoModules = import.meta.glob<string>(
+  '../assets/photos/*/*.{mp4,webm,MP4,WEBM}',
+  { eager: true, query: '?url', import: 'default' },
+);
+
 /*
  * Optional metadata: a plain-text file named album.txt inside an album folder.
- * Lines are "key: value". Special keys: title, description, cover, featured.
- * Any key that matches a photo's filename becomes that photo's caption.
+ * Lines are "key: value". Special keys: title, description, cover, featured,
+ * hidden, section. Any key that matches a photo's or video's filename becomes
+ * that item's caption.
  */
 const textModules = import.meta.glob<string>('../assets/photos/*/album.txt', {
   eager: true,
@@ -59,22 +76,41 @@ function titleFromSlug(slug: string): string {
     .join(' ');
 }
 
+function isYes(value: string | undefined): boolean {
+  return ['yes', 'true', '1'].includes((value ?? '').toLowerCase());
+}
+
 function buildAlbums(): Album[] {
-  const bySlug = new Map<string, Photo[]>();
+  const photosBySlug = new Map<string, Photo[]>();
+  const videosBySlug = new Map<string, Video[]>();
 
   for (const [path, mod] of Object.entries(imageModules)) {
     const parts = path.split('/');
     const slug = parts[parts.length - 2]!;
     const file = parts[parts.length - 1]!;
-    const photos = bySlug.get(slug) ?? [];
+    const photos = photosBySlug.get(slug) ?? [];
     photos.push({ file, image: mod.default });
-    bySlug.set(slug, photos);
+    photosBySlug.set(slug, photos);
+  }
+
+  for (const [path, url] of Object.entries(videoModules)) {
+    const parts = path.split('/');
+    const slug = parts[parts.length - 2]!;
+    const file = parts[parts.length - 1]!;
+    const videos = videosBySlug.get(slug) ?? [];
+    videos.push({ file, url });
+    videosBySlug.set(slug, videos);
   }
 
   const albums: Album[] = [];
+  const slugs = new Set([...photosBySlug.keys(), ...videosBySlug.keys()]);
 
-  for (const [slug, photos] of bySlug) {
+  for (const slug of slugs) {
+    const photos = photosBySlug.get(slug) ?? [];
+    const videos = videosBySlug.get(slug) ?? [];
+    if (photos.length === 0) continue; // an album needs at least one photo for its cover
     photos.sort((a, b) => a.file.localeCompare(b.file));
+    videos.sort((a, b) => a.file.localeCompare(b.file));
 
     const textPath = Object.keys(textModules).find((p) => p.includes(`/${slug}/album.txt`));
     const meta = textPath ? parseAlbumText(textModules[textPath]!) : new Map<string, string>();
@@ -82,6 +118,10 @@ function buildAlbums(): Album[] {
     for (const photo of photos) {
       const caption = meta.get(photo.file.toLowerCase());
       if (caption) photo.caption = caption;
+    }
+    for (const video of videos) {
+      const caption = meta.get(video.file.toLowerCase());
+      if (caption) video.caption = caption;
     }
 
     const coverFile = meta.get('cover')?.toLowerCase();
@@ -92,10 +132,12 @@ function buildAlbums(): Album[] {
       slug,
       title: meta.get('title') ?? titleFromSlug(slug),
       description: meta.get('description'),
-      featured: ['yes', 'true', '1'].includes((meta.get('featured') ?? '').toLowerCase()),
-      hidden: ['yes', 'true', '1'].includes((meta.get('hidden') ?? '').toLowerCase()),
+      featured: isYes(meta.get('featured')),
+      hidden: isYes(meta.get('hidden')),
+      section: meta.get('section')?.toLowerCase(),
       cover,
       photos,
+      videos,
     });
   }
 

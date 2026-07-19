@@ -33,7 +33,7 @@ const { album } = Astro.props;
       )
     }
 
-    <PhotoGrid photos={album.photos} contextTitle={album.title} />
+    <PhotoGrid photos={album.photos} videos={album.videos} contextTitle={album.title} />
     <Lightbox />
 
     <p class="mt-14 border-t border-line pt-8 text-sm text-fog">

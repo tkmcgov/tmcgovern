@@ -1,48 +1,70 @@
 ---
 import { Picture, getImage } from 'astro:assets';
-import type { Photo } from '../lib/albums';
+import type { Photo, Video } from '../lib/albums';
 
 /*
- * Masonry photo grid whose photos open in the shared Lightbox —
- * include <Lightbox /> once on any page that uses this component.
+ * Masonry grid of photos (and optionally self-hosted videos), ordered
+ * together by filename. Photos open in the shared Lightbox — include
+ * <Lightbox /> once on any page that uses this component.
  */
 interface Props {
   photos: Photo[];
+  videos?: Video[];
   /** used for alt text on photos without a caption */
   contextTitle: string;
 }
 
-const { photos, contextTitle } = Astro.props;
+const { photos, videos = [], contextTitle } = Astro.props;
 
 /* pre-render a large optimized version of each photo for the lightbox */
-const fullSize = await Promise.all(
-  photos.map((photo) =>
-    getImage({ src: photo.image, width: 2400, format: 'webp', quality: 80 }),
+const fullSize = new Map(
+  await Promise.all(
+    photos.map(async (photo) => {
+      const large = await getImage({ src: photo.image, width: 2400, format: 'webp', quality: 80 });
+      return [photo.file, large.src] as const;
+    }),
   ),
 );
+
+type MediaItem = { kind: 'photo'; item: Photo; index: number } | { kind: 'video'; item: Video };
+
+const media: MediaItem[] = [
+  ...photos.map((item, index) => ({ kind: 'photo', item, index }) as const),
+  ...videos.map((item) => ({ kind: 'video', item }) as const),
+].sort((a, b) => a.item.file.localeCompare(b.item.file));
 ---
 
 <div class="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
   {
-    photos.map((photo, i) => (
-      <a
-        href={fullSize[i]!.src}
-        class="lightbox-link group block break-inside-avoid"
-        data-caption={photo.caption ?? ''}
-      >
-        <Picture
-          src={photo.image}
-          alt={photo.caption ?? `${contextTitle} — photograph ${i + 1}`}
-          widths={[480, 800, 1200]}
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          formats={['avif', 'webp']}
-          fallbackFormat="webp"
-          class="w-full transition-opacity duration-300 group-hover:opacity-85"
-        />
-        {photo.caption && (
-          <p class="mt-2 text-xs leading-relaxed text-fog">{photo.caption}</p>
-        )}
-      </a>
-    ))
+    media.map((entry) =>
+      entry.kind === 'photo' ? (
+        <a
+          href={fullSize.get(entry.item.file)}
+          class="lightbox-link group block break-inside-avoid"
+          data-caption={entry.item.caption ?? ''}
+        >
+          <Picture
+            src={entry.item.image}
+            alt={entry.item.caption ?? `${contextTitle} — photograph ${entry.index + 1}`}
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            class="w-full transition-opacity duration-300 group-hover:opacity-85"
+          />
+          {entry.item.caption && (
+            <p class="mt-2 text-xs leading-relaxed text-fog">{entry.item.caption}</p>
+          )}
+        </a>
+      ) : (
+        <div class="break-inside-avoid">
+          {/* eslint-disable-next-line -- captions optional; short personal clips */}
+          <video controls playsinline preload="metadata" class="w-full" src={entry.item.url} />
+          {entry.item.caption && (
+            <p class="mt-2 text-xs leading-relaxed text-fog">{entry.item.caption}</p>
+          )}
+        </div>
+      ),
+    )
   }
 </div>

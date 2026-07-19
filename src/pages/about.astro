@@ -1,12 +1,12 @@
 ---
 import { Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { getAlbums } from '../lib/albums';
+import { getAlbum } from '../lib/albums';
 
 export const prerender = true;
 
-const albums = getAlbums();
-const featured = albums.find((a) => a.featured) ?? albums[0];
+const mcmurdo = getAlbum('mcmurdo');
+const aboutPhoto = mcmurdo?.photos.find((p) => p.file === '14.avif');
 ---
 
 <Base title="About — Terrance McGovern" description="About landscape and astrophotographer Terrance McGovern.">
@@ -53,18 +53,18 @@ const featured = albums.find((a) => a.featured) ?? albums[0];
         </a>
       </div>
       {
-        featured && (
+        aboutPhoto && mcmurdo && (
           <div>
             <Picture
-              src={featured.cover}
-              alt={featured.title}
+              src={aboutPhoto.image}
+              alt={aboutPhoto.caption ?? mcmurdo.title}
               widths={[480, 800, 1200]}
               sizes="(min-width: 1024px) 40vw, 100vw"
               formats={['avif', 'webp']}
               fallbackFormat="webp"
-              class="w-full object-cover"
+              class="w-full"
             />
-            <p class="mt-2 text-xs text-fog">From “{featured.title}”</p>
+            <p class="mt-2 text-xs text-fog">From “{mcmurdo.title}”</p>
           </div>
         )
       }

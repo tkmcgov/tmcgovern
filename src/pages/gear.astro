@@ -2,25 +2,123 @@
 import Base from '../layouts/Base.astro';
 
 export const prerender = true;
+
+const sections = [
+  {
+    heading: 'Photography',
+    items: [
+      {
+        name: 'Fujifilm X-T5',
+        body: "I chose this camera after a lot of research. I wanted something genuinely high-quality that I would actually carry on long trips. APS-C bodies run lighter than full-frame, and paired with 40.2 megapixels I can carry a much smaller telephoto and still crop into good wildlife shots at a distance. Purchased used from MPB. Also available new from B&H.",
+      },
+      {
+        name: 'Sigma 18-50mm f/2.8 DC DN Contemporary',
+        body: 'The everyday lens, for when I want to carry just the camera and a single lens. Purchased used from KEH. Also available new from B&H.',
+      },
+      {
+        name: 'Viltrox AF 13mm f/1.4',
+        body: 'My astrophotography lens: 13mm for lots of sky, f/1.4 for lots of light. Purchased used from KEH. Also available new from B&H.',
+      },
+      {
+        name: 'Fujifilm XF 70-300mm f/4-5.6 R LM OIS WR',
+        body: 'The telephoto, for wildlife. Purchased used from KEH. Also available new from B&H.',
+      },
+      {
+        name: 'Fujifilm XF 27mm f/2.8 R WR',
+        body: "The pancake lens, for summit pushes and long treks where I still want the camera but at the lowest possible weight. It's seen the least use so far, but I'm looking forward to the tough trails in its future. Purchased used from Adorama. Also available new from B&H.",
+      },
+      {
+        name: 'K&F Concept 64" Carbon Fiber Tripod (K254C2 / O254C2 + BH-36L)',
+        body: "Carbon fiber so it's light enough for travel and the trail, and so I can handle it in the Antarctic winter. Purchased on Amazon.",
+      },
+    ],
+  },
+  {
+    heading: 'Hiking & Outdoors',
+    items: [
+      {
+        name: 'Sawyer Squeeze Water Filter',
+        body: 'The best trail filter there is. Treat it right and it will last a lifetime.',
+      },
+      {
+        name: 'Platypus SoftBottle (1L)',
+        body: "Back in the day, the pouch included with the Sawyer wasn't very durable. I hear they've improved, but my Platypus has lasted years, so I've never needed to find out.",
+      },
+      {
+        name: 'Kahtoola MICROspikes',
+        body: "The original trail spike, good for the vast majority of ice and snow. There are plenty of knock-offs now, but I know these are well made: I've had the same pair for over ten years.",
+      },
+      {
+        name: 'Nalgene 32oz Narrow Mouth Bottle',
+        body: "Not the lightest bottle, but it sure is durable. Many claim they're indestructible; I have personally proven that incorrect and managed to break a few. But Nalgene stands behind the lifetime warranty — they've replaced mine completely free every time.",
+      },
+      {
+        name: 'Darn Tough Hiker Micro Crew Midweight',
+        body: "They are indeed darn tough, but no sock can withstand the abuse of my level of hiking. Still: I did nearly all of the Catskill 3500, ADK 46, and NH 48 peaks in just two pairs — and they lasted ten years after that. If that's not tough, I don't know what is.",
+      },
+    ],
+  },
+  {
+    heading: 'Travel',
+    items: [
+      {
+        name: 'SteriPEN Ultra',
+        body: "Single-use plastic water bottles are my biggest pet peeve. I backpacked internationally for 17 months straight and never bought a single one. SteriPEN was bought by Katadyn (a filter company) and the Ultra hasn't meaningfully changed since… it still charges over micro-USB instead of USB-C. One more cord to carry on an extended trip, sigh.",
+      },
+      {
+        name: 'Nalgene 32oz Narrow Mouth Bottle',
+        body: "See hiking above, but I recommend the narrow mouth specifically because of the SteriPEN: it's the perfect fit, forming a seal during use so I can invert and shake the bottle for the best sterilization — or let it sit on top, hands-free.",
+      },
+      {
+        name: 'Osprey Farpoint 40',
+        body: "I'll be honest, I've never thought Osprey made the best hiking packs. Don't get me wrong, they're a solid choice — my current extended-day pack is an Osprey from Re/Supply and I'm happy with it. But when I was shopping for a round-the-world backpacking pack, I was buying new, and all my research led here. Plenty of competitors have released comparable packs since; I haven't tried any of them, because my Farpoint has held up through extreme abuse — over 50 countries and 8 years. I stand by it.",
+      },
+      {
+        name: 'Darn Tough Lightweight Socks',
+        body: "Mentioned above, but worth repeating: I wear the lightweight versions every day, and they're the best socks for travel. My travels tend toward rough roads, so even these wear out eventually. But the Darn Tough guarantee is a real lifetime warranty… I've warranty-replaced my warranty replacements at this point.",
+      },
+    ],
+  },
+  {
+    heading: 'Everyday',
+    items: [
+      {
+        name: 'Xero Shoes',
+        body: "I converted to barefoot-style shoes years ago and wish I'd done it sooner. I fully believe modern footwear is just wrong for our feet. Xero is one of the original players in the barefoot space and I've loved them for years. The movement keeps growing and more options keep appearing, but I haven't seen a reason to switch.",
+      },
+    ],
+  },
+];
 ---
 
 <Base
   title="Gear — Terrance McGovern"
-  description="Field-tested gear notes from Antarctica and the trail — coming soon."
+  description="Field-tested gear that has survived Antarctic winters, long trails, and 50+ countries — what I actually use and stand by."
 >
-  <div class="mx-auto flex min-h-svh max-w-2xl flex-col items-start justify-center px-5 sm:px-8">
-    <p class="text-xs uppercase tracking-[0.35em] text-fog">Coming soon</p>
-    <h1 class="mt-3 text-3xl font-light sm:text-4xl">Gear</h1>
-    <p class="mt-4 text-sm leading-relaxed text-fog sm:text-base">
-      A straight-talking rundown of what I actually carry and stand by — tested on the trail, in
-      the water, and through the Antarctic winter. No sponsorships, no filler. Notes from the
-      field are being written between shifts.
+  <div class="mx-auto max-w-4xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32">
+    <h1 class="text-3xl font-light sm:text-4xl">Gear</h1>
+    <p class="mt-4 max-w-2xl text-sm leading-relaxed text-fog sm:text-base">
+      I value… value. I've acquired my gear over many years, and a lot of it I found used on
+      Facebook Marketplace and REI Re/Supply. Sometimes a deal is too good to pass up, and that's
+      what I've gone with. But when I buy new, I'm meticulous — I'll research even the smallest
+      purchase to death. I want gear that stands the test of time. If it's on this list, I stand
+      by it. It's survived my use, and that's saying something.
     </p>
-    <a
-      href="/galleries/"
-      class="mt-8 border border-snow/80 px-6 py-3 text-xs uppercase tracking-[0.25em] text-snow transition-colors hover:bg-snow hover:text-night"
-    >
-      Meanwhile, the galleries
-    </a>
+
+    {
+      sections.map((section) => (
+        <section class="mt-14">
+          <h2 class="mb-2 text-xs uppercase tracking-[0.35em] text-fog">{section.heading}</h2>
+          <ul class="divide-y divide-line border-y border-line">
+            {section.items.map((item) => (
+              <li class="py-5">
+                <h3 class="text-sm uppercase tracking-[0.2em] text-snow">{item.name}</h3>
+                <p class="mt-2 max-w-3xl text-sm leading-relaxed text-fog">{item.body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
   </div>
 </Base>

@@ -7,12 +7,13 @@ export const prerender = true;
 
 const albums = getAlbums();
 const featured = albums.filter((a) => a.featured);
-const rest = albums.filter((a) => !a.featured);
+const goodCamera = albums.filter((a) => a.section !== 'earlier');
+const earlier = albums.filter((a) => a.section === 'earlier');
 ---
 
 <Base
   title="Galleries — Terrance McGovern"
-  description="Photo galleries from hikes around the world and astrophotography from Antarctica."
+  description="Photo galleries from Antarctica and around the world — astrophotography, landscapes, and earlier travels."
 >
   <div class="mx-auto max-w-6xl px-5 pb-20 pt-28 sm:px-8 sm:pt-32">
     <h1 class="text-3xl font-light sm:text-4xl">Galleries</h1>
@@ -53,34 +54,75 @@ const rest = albums.filter((a) => !a.featured);
       )
     }
 
-    <section class="mt-14">
-      <h2 class="mb-6 text-xs uppercase tracking-[0.35em] text-fog">All journeys</h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          rest.map((album) => (
-            <a href={`/galleries/${album.slug}/`} class="group block">
-              <div class="overflow-hidden">
-                <Picture
-                  src={album.cover}
-                  alt={album.title}
-                  widths={[480, 800, 1200]}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  formats={['avif', 'webp']}
-                  fallbackFormat="webp"
-                  class:list={[
-                    'w-full transition-transform duration-500 group-hover:scale-105',
-                    album.cover.width <= album.cover.height && 'aspect-[4/3] object-cover',
-                  ]}
-                />
-              </div>
-              <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
-              {album.description && (
-                <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description}</p>
-              )}
-            </a>
-          ))
-        }
-      </div>
-    </section>
+    {
+      goodCamera.length > 0 && (
+        <section class="mt-14">
+          <h2 class="mb-2 text-xs uppercase tracking-[0.35em] text-fog">The Good Camera</h2>
+          <p class="mb-6 max-w-2xl text-sm leading-relaxed text-fog">
+            Photographs since the camera purchase.
+          </p>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {goodCamera.map((album) => (
+              <a href={`/galleries/${album.slug}/`} class="group block">
+                <div class="overflow-hidden">
+                  <Picture
+                    src={album.cover}
+                    alt={album.title}
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    formats={['avif', 'webp']}
+                    fallbackFormat="webp"
+                    class:list={[
+                      'w-full transition-transform duration-500 group-hover:scale-105',
+                      album.cover.width <= album.cover.height && 'aspect-[4/3] object-cover',
+                    ]}
+                  />
+                </div>
+                <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
+                {album.description && (
+                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description}</p>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      earlier.length > 0 && (
+        <section class="mt-14">
+          <h2 class="mb-2 text-xs uppercase tracking-[0.35em] text-fog">Earlier Travels</h2>
+          <p class="mb-6 max-w-2xl text-sm leading-relaxed text-fog">
+            Phone and dive-camera shots from trips before the camera — more for the stories than
+            for prints.
+          </p>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {earlier.map((album) => (
+              <a href={`/galleries/${album.slug}/`} class="group block">
+                <div class="overflow-hidden">
+                  <Picture
+                    src={album.cover}
+                    alt={album.title}
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    formats={['avif', 'webp']}
+                    fallbackFormat="webp"
+                    class:list={[
+                      'w-full transition-transform duration-500 group-hover:scale-105',
+                      album.cover.width <= album.cover.height && 'aspect-[4/3] object-cover',
+                    ]}
+                  />
+                </div>
+                <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
+                {album.description && (
+                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description}</p>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </Base>

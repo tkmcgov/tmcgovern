@@ -1,0 +1,6 @@
+title: Maldives
+description: Diving days in the Maldives — phone and dive-camera shots from before the good camera.
+section: earlier
+
+# To caption a photo or video, add a line matching its exact filename, e.g.:
+# 01-reef.jpg: The house reef at dusk.
