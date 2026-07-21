@@ -42,7 +42,9 @@ const earlier = albums.filter((a) => a.section === 'earlier');
               <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-night/90 via-transparent to-transparent p-6 sm:p-10">
                 <h3 class="text-2xl font-light sm:text-3xl">{album.title}</h3>
                 {album.description && (
-                  <p class="mt-2 hidden max-w-xl text-sm text-fog sm:block">{album.description}</p>
+                  <p class="mt-2 hidden max-w-xl text-sm text-fog sm:block">
+                    {album.description.split('\n\n')[0]}
+                  </p>
                 )}
                 <p class="mt-3 text-xs uppercase tracking-[0.25em] text-fog">
                   {album.photos.length} photographs →
@@ -80,7 +82,7 @@ const earlier = albums.filter((a) => a.section === 'earlier');
                 </div>
                 <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
                 {album.description && (
-                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description}</p>
+                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description.split('\n\n')[0]}</p>
                 )}
               </a>
             ))}
@@ -116,7 +118,7 @@ const earlier = albums.filter((a) => a.section === 'earlier');
                 </div>
                 <h3 class="mt-4 text-sm uppercase tracking-[0.2em]">{album.title}</h3>
                 {album.description && (
-                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description}</p>
+                  <p class="mt-1 line-clamp-2 text-xs leading-relaxed text-fog">{album.description.split('\n\n')[0]}</p>
                 )}
               </a>
             ))}

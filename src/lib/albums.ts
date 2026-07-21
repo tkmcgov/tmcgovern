@@ -12,6 +12,8 @@ export interface Video {
   file: string;
   url: string;
   caption?: string;
+  /** listed under the album.txt "loop:" key — plays again from the start when it ends */
+  loop: boolean;
 }
 
 export interface Album {
@@ -59,12 +61,25 @@ const textModules = import.meta.glob<string>('../assets/photos/*/album.txt', {
 
 function parseAlbumText(raw: string): Map<string, string> {
   const entries = new Map<string, string>();
+  let lastKey: string | null = null;
+  let sawBlank = false;
   for (const line of raw.split(/\r?\n/)) {
     const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
+    if (!trimmed) {
+      sawBlank = true;
+      continue;
+    }
+    if (trimmed.startsWith('#')) continue;
     const colon = trimmed.indexOf(':');
-    if (colon === -1) continue;
-    entries.set(trimmed.slice(0, colon).trim().toLowerCase(), trimmed.slice(colon + 1).trim());
+    if (colon > 0) {
+      lastKey = trimmed.slice(0, colon).trim().toLowerCase();
+      entries.set(lastKey, trimmed.slice(colon + 1).trim());
+    } else if (lastKey === 'description') {
+      /* colon-less lines extend the description; a preceding blank line starts a new paragraph */
+      const joiner = sawBlank ? '\n\n' : ' ';
+      entries.set('description', `${entries.get('description')}${joiner}${trimmed}`);
+    }
+    sawBlank = false;
   }
   return entries;
 }
@@ -98,7 +113,7 @@ function buildAlbums(): Album[] {
     const slug = parts[parts.length - 2]!;
     const file = parts[parts.length - 1]!;
     const videos = videosBySlug.get(slug) ?? [];
-    videos.push({ file, url });
+    videos.push({ file, url, loop: false });
     videosBySlug.set(slug, videos);
   }
 
@@ -119,9 +134,16 @@ function buildAlbums(): Album[] {
       const caption = meta.get(photo.file.toLowerCase());
       if (caption) photo.caption = caption;
     }
+    const loopFiles = new Set(
+      (meta.get('loop') ?? '')
+        .split(/[\s,]+/)
+        .map((f) => f.toLowerCase())
+        .filter(Boolean),
+    );
     for (const video of videos) {
       const caption = meta.get(video.file.toLowerCase());
       if (caption) video.caption = caption;
+      video.loop = loopFiles.has(video.file.toLowerCase());
     }
 
     const coverFile = meta.get('cover')?.toLowerCase();

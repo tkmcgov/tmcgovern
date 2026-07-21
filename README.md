@@ -33,7 +33,10 @@ cover: 03-skogafoss.jpg
 
 - `title:` — the display name (otherwise the folder name is prettified, e.g.
   `new-zealand` → "New Zealand").
-- `description:` — a sentence or two shown on the gallery pages.
+- `description:` — text shown on the gallery pages. For multiple paragraphs,
+  continue on the following lines with a blank line between paragraphs (avoid
+  colons inside those extra lines — a line containing a colon is treated as a
+  new setting or caption).
 - `featured: yes` — gives the album top billing on the Galleries page.
 - `section: earlier` — puts the album in the "Earlier Travels" section of the
   Galleries page; without it, albums appear under "The Good Camera".
@@ -50,7 +53,9 @@ Everything is optional; an album works fine with no `album.txt` at all.
 Albums can also contain short self-hosted videos: upload `.mp4` files (H.264,
 the normal phone export format) into the album folder alongside the photos.
 They play right in the gallery grid, ordered with the photos by filename, and
-can be captioned in `album.txt` the same way. Keep each video **under 25 MB**
+can be captioned in `album.txt` the same way. To make specific videos restart
+automatically when they finish, list them on a `loop:` line in `album.txt`,
+e.g. `loop: 04.mp4 07.mp4`. Keep each video **under 25 MB**
 — that's a hard limit of both GitHub's uploader and Cloudflare's hosting —
 which in practice means trimming clips short and exporting at 1080p.
 

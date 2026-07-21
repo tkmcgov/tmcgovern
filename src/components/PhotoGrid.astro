@@ -4,8 +4,9 @@ import type { Photo, Video } from '../lib/albums';
 
 /*
  * Masonry grid of photos (and optionally self-hosted videos), ordered
- * together by filename. Photos open in the shared Lightbox — include
- * <Lightbox /> once on any page that uses this component.
+ * together by filename in ROW order — items read left-to-right, top to
+ * bottom. Photos open in the shared Lightbox — include <Lightbox /> once
+ * on any page that uses this component.
  */
 interface Props {
   photos: Photo[];
@@ -34,13 +35,14 @@ const media: MediaItem[] = [
 ].sort((a, b) => a.item.file.localeCompare(b.item.file));
 ---
 
-<div class="mt-12 columns-1 gap-5 sm:columns-2 lg:columns-3 [&>*]:mb-5">
+<div class="mt-12" data-photo-grid>
   {
     media.map((entry) =>
       entry.kind === 'photo' ? (
         <a
           href={fullSize.get(entry.item.file)}
-          class="lightbox-link group block break-inside-avoid"
+          class="lightbox-link grid-item group mb-5 block"
+          data-index={entry.index}
           data-caption={entry.item.caption ?? ''}
         >
           <Picture
@@ -57,9 +59,15 @@ const media: MediaItem[] = [
           )}
         </a>
       ) : (
-        <div class="break-inside-avoid">
-          {/* eslint-disable-next-line -- captions optional; short personal clips */}
-          <video controls playsinline preload="metadata" class="w-full" src={entry.item.url} />
+        <div class="grid-item mb-5">
+          <video
+            controls
+            playsinline
+            preload="metadata"
+            loop={entry.item.loop}
+            class="w-full"
+            src={entry.item.url}
+          />
           {entry.item.caption && (
             <p class="mt-2 text-xs leading-relaxed text-fog">{entry.item.caption}</p>
           )}
@@ -68,3 +76,43 @@ const media: MediaItem[] = [
     )
   }
 </div>
+
+<script>
+  /*
+   * Deal grid items into columns in ROW order: item 1 → column 1,
+   * item 2 → column 2, item 3 → column 3, item 4 → column 1, …
+   * Re-deals when the responsive column count changes.
+   */
+  const breakpoints: Array<[MediaQueryList, number]> = [
+    [window.matchMedia('(min-width: 1024px)'), 3],
+    [window.matchMedia('(min-width: 640px)'), 2],
+  ];
+
+  function columnCount(): number {
+    for (const [query, count] of breakpoints) if (query.matches) return count;
+    return 1;
+  }
+
+  for (const grid of document.querySelectorAll<HTMLElement>('[data-photo-grid]')) {
+    const items = [...grid.querySelectorAll<HTMLElement>('.grid-item')];
+    let currentColumns = 0;
+
+    const layout = () => {
+      const columns = columnCount();
+      if (columns === currentColumns) return;
+      currentColumns = columns;
+      grid.textContent = '';
+      grid.classList.add('flex', 'items-start', 'gap-5');
+      const wrappers = Array.from({ length: columns }, () => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'min-w-0 flex-1';
+        grid.appendChild(wrapper);
+        return wrapper;
+      });
+      items.forEach((item, i) => wrappers[i % columns]!.appendChild(item));
+    };
+
+    layout();
+    for (const [query] of breakpoints) query.addEventListener('change', layout);
+  }
+</script>

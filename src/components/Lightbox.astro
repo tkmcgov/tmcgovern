@@ -35,7 +35,13 @@
 </dialog>
 
 <script>
-  const links = [...document.querySelectorAll<HTMLAnchorElement>('.lightbox-link')];
+  /* collect photo links grid by grid, in original photo order — the grid
+     layout script re-parents them, so document order can't be trusted */
+  const links = [...document.querySelectorAll<HTMLElement>('[data-photo-grid]')].flatMap((grid) =>
+    [...grid.querySelectorAll<HTMLAnchorElement>('.lightbox-link')].sort(
+      (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
+    ),
+  );
   const dialog = document.getElementById('lightbox') as HTMLDialogElement;
   const img = document.getElementById('lightbox-img') as HTMLImageElement;
   const caption = document.getElementById('lightbox-caption')!;

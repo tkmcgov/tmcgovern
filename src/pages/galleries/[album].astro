@@ -29,7 +29,11 @@ const { album } = Astro.props;
     <h1 class="text-3xl font-light sm:text-4xl">{album.title}</h1>
     {
       album.description && (
-        <p class="mt-3 max-w-2xl text-sm leading-relaxed text-fog">{album.description}</p>
+        <div class="mt-3 max-w-2xl space-y-4 text-sm leading-relaxed text-fog">
+          {album.description.split('\n\n').map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
       )
     }
 
