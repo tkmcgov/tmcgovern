@@ -1,6 +1,7 @@
 title: Winter at the South Pole
 section: earlier
 loop: 18.mp4 20.mp4 22.mp4 23.mp4 24.mp4 25.mp4
+cover: 26_result.avif
 description: The 2025 austral winter at the Amundsen-Scott South Pole Station marked the 69th winter season of continuous operations, and yet less 2000 people have been at pole in the winter. I spent just shy of a year there, arriving in December 2024 and departing in November 2025. Pole typically has ~150 people at any given time in the summer, with multiple flights most weeks. However come February, temperatures start to drop to the point where LC-130s can no longer support us. When the last flight leaves, a skeleton crew of ~40 (42 my winter) stay behind to keep the station afloat until late October. We become the most isolated humans there are - even the astronauts in the ISS are more connected to civilization with 24/7 internet and the ability to return to earth in an emergency. For over 8 months, we are alone. No more fresh food coming in, no way home even if you fall ill. Once the single sunset of the year occurs in March, we enter our 6 month long polar night, where temperatures can hit an ambient -100F. 
 
 Here are some photos to document the year. Shot on a pixel 7a unless otherwise noted. 
@@ -38,7 +39,7 @@ Here are some photos to document the year. Shot on a pixel 7a unless otherwise n
 26_result.avif: Admiring the southern lights *Not my camera.
 27_result.avif: After 6 months, the sun finally returns to pole.
 28_result.avif: Each year at our sunrise dinner, the various outdoor flags are raffled off and new one are placed outside. I won the USAP flag flown at the entrance to the station. For some reason the replacement flag was much smaller this year... *Photo by Sim Bash
-28a.mp4: My flight out of pole to McMurdo on a Basler BT-67 (converted Douglas DC-3), operated by Kenn Borek Air.
+28.mp4: My flight out of pole to McMurdo on a Basler BT-67 (converted Douglas DC-3), operated by Kenn Borek Air.
 28a.avif: My ride back to the real world, a C-17 to New Zealand flown by the US Air Force.
 28b.avif: Much more space than the trip to ice.
 29_result.avif: Back to reality

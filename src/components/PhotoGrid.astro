@@ -79,9 +79,11 @@ const media: MediaItem[] = [
 
 <script>
   /*
-   * Deal grid items into columns in ROW order: item 1 → column 1,
-   * item 2 → column 2, item 3 → column 3, item 4 → column 1, …
-   * Re-deals when the responsive column count changes.
+   * Masonry that preserves story order: items are placed one at a time,
+   * in filename order, each into whichever column is currently shortest.
+   * Columns stay visually balanced and the sequence flows down the page.
+   * Re-lays out when the responsive column count changes and when video
+   * dimensions become known.
    */
   const breakpoints: Array<[MediaQueryList, number]> = [
     [window.matchMedia('(min-width: 1024px)'), 3],
@@ -95,12 +97,9 @@ const media: MediaItem[] = [
 
   for (const grid of document.querySelectorAll<HTMLElement>('[data-photo-grid]')) {
     const items = [...grid.querySelectorAll<HTMLElement>('.grid-item')];
-    let currentColumns = 0;
 
     const layout = () => {
       const columns = columnCount();
-      if (columns === currentColumns) return;
-      currentColumns = columns;
       grid.textContent = '';
       grid.classList.add('flex', 'items-start', 'gap-5');
       const wrappers = Array.from({ length: columns }, () => {
@@ -109,10 +108,24 @@ const media: MediaItem[] = [
         grid.appendChild(wrapper);
         return wrapper;
       });
-      items.forEach((item, i) => wrappers[i % columns]!.appendChild(item));
+      const heights = new Array(columns).fill(0);
+      for (const item of items) {
+        const shortest = heights.indexOf(Math.min(...heights));
+        wrappers[shortest]!.appendChild(item);
+        heights[shortest] += item.offsetHeight;
+      }
     };
 
     layout();
-    for (const [query] of breakpoints) query.addEventListener('change', layout);
+    for (const [query] of breakpoints) query.addEventListener('change', () => layout());
+
+    /* video heights are unknown until their metadata loads — re-balance once known */
+    let pending: ReturnType<typeof setTimeout> | undefined;
+    for (const video of grid.querySelectorAll('video')) {
+      video.addEventListener('loadedmetadata', () => {
+        clearTimeout(pending);
+        pending = setTimeout(layout, 150);
+      });
+    }
   }
 </script>
