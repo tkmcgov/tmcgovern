@@ -40,6 +40,9 @@ cover: 03-skogafoss.jpg
 - `featured: yes` — gives the album top billing on the Galleries page.
 - `section: earlier` — puts the album in the "Earlier Travels" section of the
   Galleries page; without it, albums appear under "The Good Camera".
+- `layout: rows` — lays the album out in justified rows in strict filename
+  order (best when the photos tell a story). Without it, albums use a masonry
+  layout that keeps columns balanced.
 - `hidden: yes` — keeps the album out of the Galleries entirely (used by the
   Trigger and Foster Dogs photo sets, which have their own page).
 - `cover:` — which photo to use as the album's cover (otherwise the first one).

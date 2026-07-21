@@ -13,9 +13,11 @@ interface Props {
   videos?: Video[];
   /** used for alt text on photos without a caption */
   contextTitle: string;
+  /** 'rows' → justified rows in strict story order; default masonry */
+  layout?: string;
 }
 
-const { photos, videos = [], contextTitle } = Astro.props;
+const { photos, videos = [], contextTitle, layout } = Astro.props;
 
 /* pre-render a large optimized version of each photo for the lightbox */
 const fullSize = new Map(
@@ -35,7 +37,7 @@ const media: MediaItem[] = [
 ].sort((a, b) => a.item.file.localeCompare(b.item.file));
 ---
 
-<div class="mt-12" data-photo-grid>
+<div class="mt-12" data-photo-grid data-layout={layout === 'rows' ? 'rows' : 'masonry'}>
   {
     media.map((entry) =>
       entry.kind === 'photo' ? (
@@ -95,10 +97,25 @@ const media: MediaItem[] = [
     return 1;
   }
 
+  /* width ÷ height of the media inside a grid item */
+  function aspectOf(item: HTMLElement): number {
+    const img = item.querySelector('img');
+    if (img) {
+      const w = Number(img.getAttribute('width'));
+      const h = Number(img.getAttribute('height'));
+      if (w > 0 && h > 0) return w / h;
+    }
+    const video = item.querySelector('video');
+    if (video && video.videoWidth > 0) return video.videoWidth / video.videoHeight;
+    return 16 / 9;
+  }
+
   for (const grid of document.querySelectorAll<HTMLElement>('[data-photo-grid]')) {
     const items = [...grid.querySelectorAll<HTMLElement>('.grid-item')];
+    const mode = grid.dataset.layout;
 
-    const layout = () => {
+    /* masonry: each item, in order, into the currently shortest column */
+    const masonryLayout = () => {
       const columns = columnCount();
       grid.textContent = '';
       grid.classList.add('flex', 'items-start', 'gap-5');
@@ -116,10 +133,70 @@ const media: MediaItem[] = [
       }
     };
 
-    layout();
-    for (const [query] of breakpoints) query.addEventListener('change', () => layout());
+    /* justified rows: strict story order; every item in a row shares a
+       height, widths follow each item's aspect ratio, rows fill the width */
+    const rowsLayout = () => {
+      const width = grid.clientWidth;
+      const gap = 20; /* matches gap-5 */
+      grid.textContent = '';
+      grid.classList.remove('items-start');
+      grid.classList.add('flex', 'flex-col', 'gap-5');
+      for (const item of items) item.classList.remove('mb-5');
 
-    /* video heights are unknown until their metadata loads — re-balance once known */
+      if (width < 640) {
+        for (const item of items) {
+          item.style.width = '100%';
+          grid.appendChild(item);
+        }
+        return;
+      }
+
+      const target = 340; /* preferred row height in px */
+      let row: Array<{ item: HTMLElement; aspect: number }> = [];
+      let rowAspect = 0;
+
+      const flushRow = (isLast: boolean) => {
+        if (row.length === 0) return;
+        const usable = width - gap * (row.length - 1) - 1;
+        let height = usable / rowAspect;
+        if (isLast && height > target * 1.2) height = target;
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'flex items-start gap-5';
+        for (const { item, aspect } of row) {
+          item.style.width = `${aspect * height}px`;
+          item.style.flex = '0 0 auto';
+          item.style.maxWidth = '100%';
+          rowDiv.appendChild(item);
+        }
+        grid.appendChild(rowDiv);
+        row = [];
+        rowAspect = 0;
+      };
+
+      for (const item of items) {
+        const aspect = aspectOf(item);
+        row.push({ item, aspect });
+        rowAspect += aspect;
+        if (rowAspect * target + gap * (row.length - 1) >= width) flushRow(false);
+      }
+      flushRow(true);
+    };
+
+    const layout = mode === 'rows' ? rowsLayout : masonryLayout;
+
+    layout();
+    if (mode === 'rows') {
+      /* row widths are pixel-based — recompute on any resize */
+      let resizePending: ReturnType<typeof setTimeout> | undefined;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizePending);
+        resizePending = setTimeout(layout, 150);
+      });
+    } else {
+      for (const [query] of breakpoints) query.addEventListener('change', () => layout());
+    }
+
+    /* video dimensions are unknown until their metadata loads — re-run once known */
     let pending: ReturnType<typeof setTimeout> | undefined;
     for (const video of grid.querySelectorAll('video')) {
       video.addEventListener('loadedmetadata', () => {

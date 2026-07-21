@@ -27,6 +27,8 @@ export interface Album {
   hidden: boolean;
   /** which Galleries section the album lives in: 'earlier' → Earlier Travels, otherwise The Good Camera */
   section?: string;
+  /** 'rows' → justified rows in strict story order; anything else → masonry */
+  layout?: string;
   cover: ImageMetadata;
   photos: Photo[];
   videos: Video[];
@@ -157,6 +159,7 @@ function buildAlbums(): Album[] {
       featured: isYes(meta.get('featured')),
       hidden: isYes(meta.get('hidden')),
       section: meta.get('section')?.toLowerCase(),
+      layout: meta.get('layout')?.toLowerCase(),
       cover,
       photos,
       videos,
