@@ -1,6 +1,44 @@
 title: Winter at the South Pole
-description: A winter-over at Amundsen-Scott South Pole Station — from before the good camera, more for the stories than for prints.
-section: earlier
+description: The 2025 austral winter at the Amundsen-Scott South Pole Station marked the 69th winter season of continuous operations, and yet less 2000 people have been at pole in the winter. I spent just shy of a year there, arriving in December 2024 and departing in November 2025. Pole typically has ~150 people at any given time in the summer, with multiple flights most weeks. However come February, temperatures start to drop to the point where LC-130s can no longer support us. When the last flight leaves, a skeleton crew of ~40 (42 my winter) stay behind to keep the station afloat until late October. We become the most isolated humans there are - even the astronauts in the ISS are more connected to civilization with 24/7 internet and the ability to return to earth in an emergency. For over 8 months, we are alone. No more fresh food coming in, no way home even if you fall ill. Once the single sunset of the year occurs in March, we enter our 6 month long polar night, where temperatures can hit an ambient -100F. 
 
-# To caption a photo or video, add a line matching its exact filename, e.g.:
-# 01-sunset.jpg: The last sunset for six months.
+Here are some photos to document the year. Shot on a pixel 7a unless otherwise noted. 
+
+01_result.avif: The journey starts in New Zealand, our point of departure for Antarctica. 
+02_result.avif: I flew down on a Royal New Zealand Air Force C-130.
+03_result.avif: Cargo filling the back of the plane.
+04_result.avif: A full flight.
+05_result.avif: Arrival at McMurdo Station - the largest base in Antarctica. 
+06_result.avif: Located on Ross Island, all cargo and people bound for pole pass through McMurdo.
+07_result.avif: McMurdo is more of a town that a base - summer population can surpass 1500 people. 
+08_result.avif: After a few days waiting for a weather window, a few of us boarded a LC-130 operated by the New York Air National Guard.
+09_result.avif: Arrival at the exact bottom of the planet, 90° South, where every direction is North.
+10_result.avif: The pole sits on a massive ice shelf that slowly moves across the continent. As such, the station (and everything on the surfaces) moves away from the true pole. The geographic pole marker and sign are adjusted back to true 90°S once a year. The ceremonial pole - this picture - is kept in front of the station. The flags are the original signatories of the Antarctic Treaty. 
+11_result.avif: A sun halo over the baron polar desert.
+12_result.avif: Frosted stairway.
+12b.mp4: An annual tradition, the snow drifts from the last winter are pushed and dumped together to form a sledding hill. Only felt appropriate to go down as a penguin.
+12a_result.avif: Double sun halo over the elevated station. 
+13_result.avif: Sun's out = t-shirt weather? I think it was only -20F...
+14_result.avif: Each winter, the crew designs and fabricates a new pole marker. It is revealed on New Year's Day, when the pole sign and marker are relocated back to the true pole to account for the ice drift.
+15_result.avif: The last LC-130 taking the last of the summer personnel back to McMurdo. The station is closed for winter, and we will watch "The Thing" as is tradition.
+16_result.avif: The south pole telescope as the sun nears the horizon.
+16a.avif: The setting sun at the geo pole. 
+17_result.avif: As winter sets in, the snow drifts grow.
+18.mp4: Just a normal commute... On my way to our Rodwell - our source of water - for some maintenance.
+19_result.avif: Eventually, true darkness sets in. Due to white-light sensitive science equipment, all lights used outside are red. 
+20.mp4: Auroras! Yes, these are from my phone. Wish I had purchase the camera before coming down to pole.
+20a_result.avif: Admiring the night sky. *Not my camera.
+21_result.avif: Interesting sastrugi (features formed in the snow from the wind). 
+22.mp4: Auroras with the laser on - one of the science instruments.
+23.mp4: More southern lights
+23a_result.avif: The coldest and southern most game of chess ever played. (Left: myself, right: Sim Bash, photographer: Zach Tejral)
+25.mp4: A bright winter sky.
+26_result.avif: Admiring the southern lights *Not my camera.
+27_result.avif: After 6 months, the sun finally returns to pole.
+28_result.avif: Each year at our sunrise dinner, the various outdoor flags are raffled off and new one are placed outside. I won the USAP flag flown at the entrance to the station. For some reason the replacement flag was much smaller this year... *Photo by Sim Bash
+28a.mp4: My flight out of pole to McMurdo on a Basler BT-67 (converted Douglas DC-3), operated by Kenn Borek Air.
+28a_result.avif: My ride back to the real world, a C-17 to New Zealand flown by the US Air Force.
+28b_result.avif: Much more space than the trip to ice.
+29_result.avif: Back to reality
+97_result.avif: Our winter crew
+98_result.avif: Official "before" photo, taken shortly after station close. On closing day, I clean shaved one last time.
+99_result.avif: Official "after" photo, taken on the day of the sunrise. That's what a polar winter does to you...
