@@ -1,6 +1,5 @@
 title: Scuba Diving the Maldives
 section: earlier
-layout: rows
 cover: 04.avif
 description: After my winter at pole, I took the long way home, with stops in Singapore, the Maldives, Portugal, and the Azores. The longest of those was over a week of scuba diving in the Maldives. Loads of great dives with lots of sharks and manta rays. 
 
@@ -14,7 +13,7 @@ Underwater shots are stills taken from video shot on a GoPro Hero 7 Black.
 06.avif: Another cleaning station visit.
 07.avif: Another flyby.
 08.avif: Like I said, a lot of mantas!
-09:avif: The sharks weren't shy either.
+09.avif: The sharks weren't shy either.
 10.avif: Close enough to show off his scars.
 11.avif: Hanging out in the anemone.
 12.avif: Octopus!
