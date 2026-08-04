@@ -92,6 +92,13 @@ const media: MediaItem[] = [
     [window.matchMedia('(min-width: 640px)'), 2],
   ];
 
+  /*
+   * How far behind the shortest column a column may be and still win the
+   * next photo, as a fraction of column width. Must exceed caption-height
+   * variance (~1-3 text lines) and stay below a landscape photo's height.
+   */
+  const LEFT_BIAS = 0.35;
+
   function columnCount(): number {
     for (const [query, count] of breakpoints) if (query.matches) return count;
     return 1;
@@ -114,7 +121,13 @@ const media: MediaItem[] = [
     const items = [...grid.querySelectorAll<HTMLElement>('.grid-item')];
     const mode = grid.dataset.layout;
 
-    /* masonry: each item, in order, into the currently shortest column */
+    /*
+     * masonry with a leftward bias: each item, in order, goes into the
+     * LEFTMOST column whose height is within a tolerance of the shortest.
+     * Small differences (a caption wrapping to a second line) no longer
+     * bump the next photo out of reading order; only a real gap — the kind
+     * a tall portrait creates — sends an item rightward to fill it.
+     */
     const masonryLayout = () => {
       const columns = columnCount();
       grid.textContent = '';
@@ -125,11 +138,17 @@ const media: MediaItem[] = [
         grid.appendChild(wrapper);
         return wrapper;
       });
+
+      /* tolerance scales with column width so it holds at every breakpoint */
+      const columnWidth = wrappers[0]!.clientWidth || grid.clientWidth / columns;
+      const tolerance = LEFT_BIAS * columnWidth;
+
       const heights = new Array(columns).fill(0);
       for (const item of items) {
-        const shortest = heights.indexOf(Math.min(...heights));
-        wrappers[shortest]!.appendChild(item);
-        heights[shortest] += item.offsetHeight;
+        const shortest = Math.min(...heights);
+        const pick = heights.findIndex((h) => h <= shortest + tolerance);
+        wrappers[pick]!.appendChild(item);
+        heights[pick] += item.offsetHeight;
       }
     };
 
