@@ -30,6 +30,8 @@ export interface Album {
   /** 'rows' → justified rows in strict story order; anything else → masonry */
   layout?: string;
   cover: ImageMetadata;
+  /** optional separate photo for the home page hero; falls back to the cover */
+  hero: ImageMetadata;
   photos: Photo[];
   videos: Video[];
 }
@@ -152,6 +154,9 @@ function buildAlbums(): Album[] {
     const cover =
       photos.find((p) => p.file.toLowerCase() === coverFile)?.image ?? photos[0]!.image;
 
+    const heroFile = meta.get('hero')?.toLowerCase();
+    const hero = photos.find((p) => p.file.toLowerCase() === heroFile)?.image ?? cover;
+
     albums.push({
       slug,
       title: meta.get('title') ?? titleFromSlug(slug),
@@ -161,6 +166,7 @@ function buildAlbums(): Album[] {
       section: meta.get('section')?.toLowerCase(),
       layout: meta.get('layout')?.toLowerCase(),
       cover,
+      hero,
       photos,
       videos,
     });

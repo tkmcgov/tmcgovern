@@ -14,7 +14,7 @@ const hero = albums.find((a) => a.featured) ?? albums[0];
     {
       hero && (
         <Picture
-          src={hero.cover}
+          src={hero.hero}
           alt={hero.title}
           widths={[640, 1024, 1600, 2400]}
           sizes="100vw"
@@ -29,7 +29,7 @@ const hero = albums.find((a) => a.featured) ?? albums[0];
     <div class="absolute inset-0 bg-gradient-to-t from-night via-night/20 to-night/40"></div>
     <div class="relative z-10 mx-auto w-full max-w-6xl px-5 pb-20 sm:px-8">
       <p class="mb-3 text-xs uppercase tracking-[0.35em] text-fog">
-        Landscapes on foot · night skies from Antarctica
+        Night skies from Antarctica · landscapes from everywhere else
       </p>
       <h1 class="max-w-3xl text-4xl font-light leading-tight sm:text-6xl">
         Photographs from the quiet ends of the earth.
