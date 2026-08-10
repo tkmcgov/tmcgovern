@@ -20,3 +20,9 @@ hero: 03.avif
 14.avif: Admiring the night sky
 15.avif: McMurdo in purple twilight as the sun gets closer to the horizon
 16.avif: Mt. Erebus in purple twilight, about a month before sunrise
+17.avif: McMurdo in the last bit of the day's twilight a week before sunrise
+18.avif: Hut Point Ridge trail in twilight
+19.avif: Two hikers admiring the light
+20.avif: McMurdo and Ob hill in twilight a week before sunrise
+21.avif: McMurdo in the brightest part of the day a week before sunrise
+22.avif: The summit of Erebus above the cloud line
