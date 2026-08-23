@@ -26,3 +26,8 @@ hero: 03.avif
 20.avif: McMurdo and Ob hill in twilight a week before sunrise
 21.avif: McMurdo in the brightest part of the day a week before sunrise
 22.avif: The summit of Erebus above the cloud line
+23.avif: A late night stargazing trip included either some meteors or some falling space debris burning up in the atmosphere
+24.avif: The rare nacreous clouds, only visible in polar regions during civil twilight
+25.avif: More nacreous clouds painting the skies
+26.avif: A delta, used to transport passengers to and from the airfield on flight days
+27.avif: The first "WINFLY" (winter flyover) flight, preparing to take home some of the winter crew
