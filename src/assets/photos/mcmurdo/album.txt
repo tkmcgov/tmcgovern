@@ -1,7 +1,7 @@
 title: Antarctic Winter - McMurdo
 description: Astrophotography and more from the Antarctic winter - auroras and the Milky way over the ice. Shot during the austral winter during my deployment to McMurdo Station of the United States Antarctic Program.
 featured: yes
-cover: 09.avif
+cover: 04.avif
 hero: 03.avif
 
 02.avif: The NASA Radome with Observation Hill in the background under the milky way
